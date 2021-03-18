@@ -73,7 +73,6 @@ def users_selection
     index = gets.strip.to_i - 1
   # index = @prompt.ask("Provide number in range: 1-15?") { |q| q.in("1-9") }  
   # index = @prompt.ask("Provide range of numbers?", convert: :range)
-
   until index.between?(0, Reports.all.length - 1)
     puts "Sorry invalid input. Choose a valid number"
     index = gets.strip.to_i - 1
@@ -110,9 +109,7 @@ def recall_details(report)
 
   def exit_or_continue
     puts "\n"
-    # puts "Type any character to Exit or Type 'List' to see if any recalls occured in your state"
-    # choice = gets.strip.capitalize
-   user_input = @prompt.select("Go back to menu or Exit", %w(Menu List Exit))
+    user_input = @prompt.select("Go back to menu or Exit", %w(Menu List Exit))
 
     if user_input == "Menu"
       self.menu
@@ -127,17 +124,35 @@ end
 
 def find_by_static
 
-    Reports.all.uniq.map.with_index(1) do |report|
+   Reports.all.uniq.map.with_index(1) do |report|
         # binding.pry
-      report = report.state
-      puts "#{report}"
+      @report = report.state
+      puts "#{@report}"
     end
+     # binding.pry
+    search
+end
+
+def search
+  #  binding.pry
 
   #  user_input = @prompt.select("Which State would you like to see reports from?", %w(Select List Exit))
    user_input = @prompt.ask("Which State would you like to see reports from?")
        
 # puts "what state?"
 #     user_input = gets.strip
+
+    # if user_input == @report      
+    # report = Api.find_by_state(user_input)
+    # recall_details(report)
+    # else
+    #   exit_or_continue
+    # end
+
+  until user_input == self.find_by_static
+    puts "Sorry invalid input. Choose a valid state"
+    user_input = @prompt.ask("Which State would you like to see reports from?")
+  end
     report = Api.find_by_state(user_input)
     recall_details(report)
 end
