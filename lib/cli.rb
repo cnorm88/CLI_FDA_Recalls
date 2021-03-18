@@ -1,46 +1,19 @@
 class Cli
 
-#   def initialize
-#     @prompt = TTY::Prompt.new
-#     welcome
-#     # menu
-#   end
-
-#   def welcome
-#     name = @prompt.ask("Please enter your name:")
-#     puts "Welcome to the FDA recall information application #{name}!"
-#   end
-  
-#   def menu
-#     input = @prompt.enum_select("What would you like to do?", ["See All Characters", "Exit"])
-#     case input
-#     when "See All Characters"
-#       binding.pry
-#       Reports.all
-#     when "Exit"
-#       logout
-#     end
-#   end
-
-#   def logout
-#     puts "Thanks for helping our Breaking Bad Besties get Back on their Feet"
-#   end
-# end
-
   def initialize
     @prompt = TTY::Prompt.new
     start
   end
 
   def start
-    name = @prompt.ask("Please enter your name:")
+    name = @prompt.ask("Please enter your name:", echo: false)
     puts "Welcome to the FDA recall information application #{name}!"
     Api.get_report
     self.menu
   end
  
-def menu
-    sleep(1)
+ def menu
+    sleep(2)
     puts "\n"
     # user_input = @prompt.yes?("Would you like to see a list of recalls made by the FDA in 2020?")
     user_input = @prompt.select("Would you like to see a list of recalls by company name or would you like to 
@@ -51,7 +24,8 @@ def menu
       puts "Here is the list of recalls"      
       list_of_recalls
     elsif user_input == "Search"
-      find_by_static
+      # find_by_static
+      search
     else
       sleep(1)
       puts "\n"
@@ -67,23 +41,22 @@ def menu
     users_selection
   end
 
-
-def users_selection
-  puts "Enter the number of the report you'd like to know more about"
+  def users_selection
+    puts "Enter the number of the report you'd like to know more about"
     index = gets.strip.to_i - 1
   # index = @prompt.ask("Provide number in range: 1-15?") { |q| q.in("1-9") }  
   # index = @prompt.ask("Provide range of numbers?", convert: :range)
-  until index.between?(0, Reports.all.length - 1)
-    puts "Sorry invalid input. Choose a valid number"
-    index = gets.strip.to_i - 1
-  end
+    until index.between?(0, Reports.all.length - 1)
+      puts "Sorry invalid input. Choose a valid number"
+      index = gets.strip.to_i - 1
+    end
   selection = Reports.all[index]
   recall_details(selection)
-end
+  end
 
-def recall_details(report)
-  puts "\n"
-  puts "What would you like to know about this #{report.state} state #{report.name} recall? Here are your options: Location, Description, Date, Quantity or Press any key to return to menus"
+  def recall_details(report)
+    puts "\n"
+    puts "What would you like to know about this #{report.state} state #{report.name} recall? Here are your options: Location, Description, Date, Quantity or Press any key to return to menus"
     choice = gets.strip.capitalize
 
     case choice
@@ -119,42 +92,49 @@ def recall_details(report)
     else
       puts "Thank you"
     end
-end
-
-
-def find_by_static
-
-   Reports.all.uniq.map.with_index(1) do |report|
-        # binding.pry
-      @report = report.state
-      puts "#{@report}"
-    end
-     # binding.pry
-    search
-end
-
-def search
-  #  binding.pry
-
-  #  user_input = @prompt.select("Which State would you like to see reports from?", %w(Select List Exit))
-   user_input = @prompt.ask("Which State would you like to see reports from?")
-       
-# puts "what state?"
-#     user_input = gets.strip
-
-    # if user_input == @report      
-    # report = Api.find_by_state(user_input)
-    # recall_details(report)
-    # else
-    #   exit_or_continue
-    # end
-
-  until user_input == self.find_by_static
-    puts "Sorry invalid input. Choose a valid state"
-    user_input = @prompt.ask("Which State would you like to see reports from?")
   end
-    report = Api.find_by_state(user_input)
-    recall_details(report)
-end
+
+  # def find_by_static
+  # #  Reports.all.each do |report|
+  # #     @report = report.state
+  # #     puts "#{@report}"
+  # #   end
+    
+  #   search(Reports.all)
+  # end
+
+  def search
+   user_input = @prompt.select("Which State would you like to see reports from?", Reports.all.map{|state|state.state})
+
+   report = Api.find_by_state(user_input)
+   recall_details(report)
+  end
+
+# def search
+#   #  binding.pry
+
+#   #  user_input = @prompt.select("Which State would you like to see reports from?", %w(Select List Exit))
+#    user_input = @prompt.ask("Which State would you like to see reports from?")
+       
+# # puts "what state?"
+# #     user_input = gets.strip
+
+#     # if user_input == @report      
+#     # report = Api.find_by_state(user_input)
+#     # recall_details(report)
+#     # else
+#     #   exit_or_continue
+#     # end
+
+
+    
+    
+#     until user_input == @report
+#     puts "Sorry invalid input. Choose a valid state"
+#     # user_input = @prompt.ask("Which State would you like to see reports from?")
+#     end
+#     report = Api.find_by_state(user_input)
+#     recall_details(report)
+# end
 
 end

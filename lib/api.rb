@@ -21,7 +21,7 @@ class Api
   end
 
   def self.find_by_state(state)
-    Reports.all.find{|states| states.state == state}
+    Reports.all.find{|states| states.state == state}  
   end
 
 end
