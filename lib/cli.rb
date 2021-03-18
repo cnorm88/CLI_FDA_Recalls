@@ -15,16 +15,14 @@ class Cli
  def menu
     sleep(2)
     puts "\n"
-    # user_input = @prompt.yes?("Would you like to see a list of recalls made by the FDA in 2020?")
     user_input = @prompt.select("Would you like to see a list of recalls by company name or would you like to 
       search for recalls by state? Enter any character to exit.", %w(List Search Exit))
-
+      
     if user_input == "List"
       puts "\n" 
       puts "Here is the list of recalls"      
       list_of_recalls
     elsif user_input == "Search"
-      # find_by_static
       search
     else
       sleep(1)
@@ -94,47 +92,11 @@ class Cli
     end
   end
 
-  # def find_by_static
-  # #  Reports.all.each do |report|
-  # #     @report = report.state
-  # #     puts "#{@report}"
-  # #   end
-    
-  #   search(Reports.all)
-  # end
-
   def search
    user_input = @prompt.select("Which State would you like to see reports from?", Reports.all.map{|state|state.state})
-
    report = Api.find_by_state(user_input)
    recall_details(report)
   end
 
-# def search
-#   #  binding.pry
-
-#   #  user_input = @prompt.select("Which State would you like to see reports from?", %w(Select List Exit))
-#    user_input = @prompt.ask("Which State would you like to see reports from?")
-       
-# # puts "what state?"
-# #     user_input = gets.strip
-
-#     # if user_input == @report      
-#     # report = Api.find_by_state(user_input)
-#     # recall_details(report)
-#     # else
-#     #   exit_or_continue
-#     # end
-
-
-    
-    
-#     until user_input == @report
-#     puts "Sorry invalid input. Choose a valid state"
-#     # user_input = @prompt.ask("Which State would you like to see reports from?")
-#     end
-#     report = Api.find_by_state(user_input)
-#     recall_details(report)
-# end
 
 end
