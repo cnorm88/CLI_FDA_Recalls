@@ -17,7 +17,8 @@ ruby bin/run
 ```
 
 
-##Implementing Bundler
+## Implementing Bundler
+
 Bundler allows you to denote which gems the app uses and lock your specific version. Then, it gives others a command to automatically install those gems. It's a great gem version tracker for large apps.
 
 Start by using bundle init and then you can add gems to the gemfile.
