@@ -42,7 +42,6 @@ class Cli
   def users_selection
     puts "Enter the number of the report you'd like to know more about"
     index = gets.strip.to_i - 1
-  # index = @prompt.ask("Provide number in range: 1-15?") { |q| q.in("1-9") }  
   # index = @prompt.ask("Provide range of numbers?", convert: :int) 
   # do |q|
   # q.in ("1-15")
@@ -97,7 +96,7 @@ class Cli
   end
 
   def search
-   user_input = @prompt.select("Which State would you like to see reports from?", Reports.all.map{|state|state.state})
+   user_input = @prompt.select("Which State would you like to see reports from?" Reports.all.map{|state|state.state})
    report = Api.find_by_state(user_input)
    recall_details(report)
   end
