@@ -17,7 +17,7 @@ class Cli
     puts "\n"
     user_input = @prompt.select("Would you like to see a list of recalls by company name or would you like to 
       search for recalls by state? Enter any character to exit.", %w(List Search Exit))
-      
+
     if user_input == "List"
       puts "\n" 
       puts "Here is the list of recalls"      
@@ -43,7 +43,11 @@ class Cli
     puts "Enter the number of the report you'd like to know more about"
     index = gets.strip.to_i - 1
   # index = @prompt.ask("Provide number in range: 1-15?") { |q| q.in("1-9") }  
-  # index = @prompt.ask("Provide range of numbers?", convert: :range)
+  # index = @prompt.ask("Provide range of numbers?", convert: :int) 
+  # do |q|
+  # q.in ("1-15")
+  # q.messages[:range?] = "%{value} out of expected range %{in}"
+  # end 
     until index.between?(0, Reports.all.length - 1)
       puts "Sorry invalid input. Choose a valid number"
       index = gets.strip.to_i - 1
