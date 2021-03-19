@@ -91,7 +91,7 @@ class Cli
   end
 
   def search
-   user_input = @prompt.select("Which State would you like to see reports from?", Reports.all.mapd{|state| state.state})
+   user_input = @prompt.select("Which State would you like to see reports from?", Reports.all.map{|state| state.state})
    report = Api.find_by_state(user_input)
    recall_details(report)
   end

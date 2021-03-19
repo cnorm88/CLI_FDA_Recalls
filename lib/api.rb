@@ -21,6 +21,7 @@ class Api
   end
 
   def self.find_by_state(state)
+    binding.pry
     Reports.all.find{|states| states.state == state}  
   end
 
