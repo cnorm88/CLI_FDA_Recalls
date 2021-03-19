@@ -12,8 +12,18 @@ Type in the terminal:
 ```bash
 git clone git@github.com:cnorm88/FDA_Recalls_CLI.git
 cd FDA_Recalls_CLI
+bundle install
 ruby bin/run
 ```
+
+
+##Implementing Bundler
+Bundler allows you to denote which gems the app uses and lock your specific version. Then, it gives others a command to automatically install those gems. It's a great gem version tracker for large apps.
+
+Start by using bundle init and then you can add gems to the gemfile.
+
+Include the bundler by adding require 'bundler' and Bundler.require to the top of your code.
+
 
 ## Usage
 
