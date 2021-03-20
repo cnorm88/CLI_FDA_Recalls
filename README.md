@@ -6,11 +6,11 @@ Location, description, quantity, date, state, city and names of the report are p
 ## Installation
 
 Clone the repository SSH link:
-[git@github.com:cnorm88/FDA_Recalls_CLI.git](git@github.com:cnorm88/FDA_Recalls_CLI.git)
+[git@github.com:cnorm88/CLI_FDA_Recalls.git](git@github.com:cnorm88/CLI_FDA_Recalls.git)
 
 Type in the terminal:
 ```bash
-git clone git@github.com:cnorm88/FDA_Recalls_CLI.git
+git clone git@github.com:cnorm88/CLI_FDA_Recalls.git
 cd FDA_Recalls_CLI
 bundle install
 ruby bin/run
