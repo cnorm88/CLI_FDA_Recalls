@@ -11,7 +11,7 @@ Clone the repository SSH link:
 Type in the terminal:
 ```bash
 git clone git@github.com:cnorm88/CLI_FDA_Recalls.git
-cd FDA_Recalls_CLI
+cd CLI_FDA_Recalls
 bundle install
 ruby bin/run
 ```
